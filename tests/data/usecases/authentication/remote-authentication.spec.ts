@@ -1,12 +1,13 @@
 import { RemoteAuthentication } from './../../../../src/data/usecases/authentication/remote-authentication'
 import { HttpPostClientSpy } from '../mocks/mock-http-client'
+import { faker } from '@faker-js/faker';
 
 describe('RemoteAuthentication', () => {
   let sut: RemoteAuthentication
   let url: string
   let httpPostClient: HttpPostClientSpy
   beforeAll(() => {
-    url = 'any_url'
+    url = faker.internet.url()
     httpPostClient = new HttpPostClientSpy()
   })
   beforeEach(() => {
