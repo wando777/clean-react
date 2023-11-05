@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests",
+    "test:watch": "run npm test -- --watch",
+    "test:staged": "run npm test -- --findRelatedTests",
+    "test:ci": "run npm test -- --coverage"
   },
   "keywords": [],
   "author": "",

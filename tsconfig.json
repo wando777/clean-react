@@ -10,7 +10,7 @@
     "module": "esnext",
     "moduleResolution": "node",
     "jsx": "react",
-    "rootDir":"src",
+    "rootDir": "src",
     "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,
@@ -22,5 +22,6 @@
   },
   "include": [
     "src",
+    "tests"
   ]
 }
