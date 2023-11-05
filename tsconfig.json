@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES2021",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
     ],
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "jsx": "react",
-    "rootDir": "src",
+    "rootDirs": [
+      "src",
+      "tests"
+    ],
     "baseUrl": "src",
     "allowJs": true,
     "skipLibCheck": true,

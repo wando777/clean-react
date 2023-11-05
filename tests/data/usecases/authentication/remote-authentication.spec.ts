@@ -1,5 +1,5 @@
-import { HttpPostClient } from 'data/protocols/http/http-post-client';
 import { RemoteAuthentication } from './../../../../src/data/usecases/authentication/remote-authentication';
+import { HttpPostClientSpy } from '../mocks/mock-http-client';
 
 describe('RemoteAuthentication', () => {
   beforeAll(() => {
@@ -14,10 +14,3 @@ describe('RemoteAuthentication', () => {
   })
 })
 
-class HttpPostClientSpy implements HttpPostClient {
-  url?: string
-  post(url: string): Promise<void> {
-    this.url = url
-    return Promise.resolve()
-  }
-}
