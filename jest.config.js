@@ -1,11 +1,17 @@
 module.exports = {
-  roots: ['<rootDir>/src'],
+  roots: [
+    "<rootDir>/src",
+    "<rootDir>/tests"
+  ],
   collectCoverageFrom: [
     '<rootDir>/src/**/*.{ts,tsx}'
   ],
   coverageDirectory: 'coverage',
-  testEnvironment: 'node',
+  testPathIgnorePatterns: [
+    '<rootDir>/node_modules/',
+  ],
+  testEnvironment: 'jest-environment-node',
   transform: {
-    '.+\\ts$': 'ts-jest'
-  }
+    '.+\\.(ts|tsx)$': 'ts-jest'
+  },
 }
