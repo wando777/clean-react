@@ -1,5 +1,5 @@
-import { AuthenticationParams } from './../../../../src/domain/usecases/authentication';
-import { RemoteAuthentication } from './../../../../src/data/usecases/authentication/remote-authentication'
+import { AuthenticationParams } from '@/domain/usecases'
+import { RemoteAuthentication } from '@/data/usecases/authentication';
 import { HttpPostClientSpy } from '../mocks/mock-http-client'
 import { faker } from '@faker-js/faker'
 
