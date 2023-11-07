@@ -15,14 +15,14 @@ describe('AxiosHttpClient', () => {
     jest.clearAllMocks()
     sut = new AxiosHttpClient()
   })
-  it('should call axios with correct URL', async () => {
+  it('should call axios with correct URL and make a post', async () => {
     await sut.post({ url })
-    expect(mockedAxios).toHaveBeenCalledWith(url)
+    expect(mockedAxios.post).toHaveBeenCalledWith(url)
   })
 })
 
 export class AxiosHttpClient {
   async post(postParams: HttpPostParams<any>): Promise<void> {
-    await axios(postParams.url)
+    await axios.post(postParams.url)
   }
 }
