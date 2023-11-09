@@ -3,4 +3,5 @@ node_modules
 .env
 coverage
 4Dev - CLean react
-public/js
+public
+*.scss
