@@ -1,9 +1,4 @@
-$white: #FFF;
-$black: #000;
-$background: #F2F2F2;
-$primary: #880E4F;
-$primaryDark: #560027;
-$primaryLight: #BC477B;
+@import "../../styles/colors.scss";
 
 * {
   font-family: 'Roboto Serif', serif;
@@ -22,6 +17,7 @@ input[type="email"] {
   border: 1px solid $primaryLight;
   line-height: 40px;
   border-radius: 4px;
+  padding: 0px 40px 0px 8px;
 
   &:focus {
     outline-color: $primaryLight;
@@ -83,6 +79,55 @@ button {
       text-align: center;
       font-size: 20px;
       text-transform: uppercase;
+    }
+
+    .inputWrap {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      align-items: center;
+
+      input {
+        flex-grow: 1;
+      }
+
+      .status {
+        position: absolute;
+        right: 0px;
+        font-size: 14px;
+        cursor: help;
+      }
+    }
+
+    .submit {
+      margin-top: 24px;
+    }
+
+    .signup {
+      text-align: center;
+      color: $primary;
+      text-transform: lowercase;
+      margin-top: 16px;
+      // padding-top: 16px;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .errorWrap{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .spinner{
+        margin-top: 10px;
+      }
+      .error{
+        margin-top: 30px;
+        color: $primaryLight;
+      }
     }
   }
 
