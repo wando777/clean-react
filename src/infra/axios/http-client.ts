@@ -1,7 +1,11 @@
-import { HttpPostClient, HttpPostParams, HttpResponse } from "@/data/protocols/http"
-import axios from "axios"
+import {
+  HttpPostClient,
+  HttpPostParams,
+  HttpResponse
+} from '@/data/protocols/http'
+import axios from 'axios'
 
-//This is the design pattern called Adapter. With this implementation, 
+//This is the design pattern called Adapter. With this implementation,
 //I can set which types I expected using interfaces and adapts this to axios
 export class AxiosHttpClient implements HttpPostClient<any, any> {
   async post(postParams: HttpPostParams<any>): Promise<HttpResponse<any>> {

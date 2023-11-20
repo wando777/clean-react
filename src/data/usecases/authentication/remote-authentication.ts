@@ -10,8 +10,11 @@ export class RemoteAuthentication implements Authentication {
       AuthenticationParams,
       AccountModel
     >
-  ) { }
-  async auth(params: { email: string; password: string }): Promise<AccountModel> {
+  ) {}
+  async auth(params: {
+    email: string
+    password: string
+  }): Promise<AccountModel> {
     const response = await this.httpPostClient.post({
       url: this.url,
       body: params
