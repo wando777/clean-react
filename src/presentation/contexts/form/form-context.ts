@@ -1,8 +1,8 @@
 import { createContext } from 'react';
 
-type StateProps = {
-  isLoading: boolean
-  errorMessage: string
-}
+// type StateProps = {
+//   isLoading: boolean
+//   errorMessage: string
+// }
 
-export default createContext({} as StateProps)
+export default createContext({} as any)
