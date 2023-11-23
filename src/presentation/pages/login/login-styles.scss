@@ -25,6 +25,15 @@
 
     .submit {
       margin-top: 24px;
+
+      &:disabled {
+        background-color: $disabled;
+        color: #777;
+
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
 
     .signup {
