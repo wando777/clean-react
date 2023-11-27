@@ -1,18 +1,21 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { RenderResult, render } from '@testing-library/react'
 import Login from '@/presentation/pages/login/login'
 
 describe('Login component', () => {
+  let sut: RenderResult
+  beforeEach(() => {
+    jest.clearAllMocks()
+    sut = render(<Login />)
+  })
   it('Should not render errors feedback when starting', () => {
-    const { getByTestId } = render(<Login />)
-    const errorWrap = getByTestId('error-wrap')
+    const errorWrap = sut.getByTestId('error-wrap')
     expect(errorWrap.childElementCount).toBe(0)
   })
   it('Should start with initial state', () => {
-    const { getByTestId } = render(<Login />)
-    const submitButton = getByTestId('submit') as HTMLButtonElement
-    const emailStatus = getByTestId('email-status')
-    const passwordStatus = getByTestId('password-status')
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
+    const emailStatus = sut.getByTestId('email-status')
+    const passwordStatus = sut.getByTestId('password-status')
     expect(submitButton.disabled).toBe(true)
     expect(emailStatus.title).toBe('Mandatory field')
     expect(passwordStatus.title).toBe('Mandatory field')
