@@ -1,27 +1,35 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Styles from './login-styles.scss'
 import { Footer, FormStatus, Input, LoginHeader } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
+import { Validation } from '@/presentation/protocols'
 
-const Login: React.FC = () => {
-  const [state] = useState({
+type Props = {
+  validation: Validation
+}
+
+const Login: React.FC<any> = ({ validation }: Props) => {
+  const [state, setState] = useState({
     isLoading: false,
-    errorMessage: ''
+    email: '',
+    errorMessage: '',
+    emailError: 'Mandatory field',
+    passwordError: 'Mandatory field',
+    mainError: ''
   })
-  const [errorState] = useState({
-    email: 'Mandatory field',
-    password: 'Mandatory field',
-    main: ''
-  })
+  useEffect(() => {
+    validation.validate({ email: state.email })
+  }, [state.email])
+
   return (
     <div className={Styles.login} >
       <LoginHeader />
-      <Context.Provider value={{ state, errorState }}>
+      <Context.Provider value={{ state, setState }}>
         <form className={Styles.form}>
           <h2>Login</h2>
-          <Input type='email' name='email' placeholder='enter your email' />
-          <Input type='password' name='password' placeholder='enter your password' />
-          <button data-testid="submit" disabled className={Styles.submit} type='submit'>Submit</button>
+          <Input type="email" name="email" placeholder="enter your email" />
+          <Input type="password" name="password" placeholder="enter your password" />
+          <button data-testid="submit" disabled className={Styles.submit} type="submit">Submit</button>
           <span className={Styles.signup}> Sign up </span>
           <FormStatus />
         </form>
