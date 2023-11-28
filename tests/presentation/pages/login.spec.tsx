@@ -59,17 +59,25 @@ describe('Login component', () => {
     expect(emailStatus.textContent).toBe('❗️')
   })
   it('Should show password error when validation fails', () => {
-    const emailInput = sut.getByTestId('password')
-    fireEvent.input(emailInput, { target: { value: password } })
-    const emailStatus = sut.getByTestId('password-status')
-    expect(emailStatus.title).toBe(validationStub.errorMessage)
-    expect(emailStatus.textContent).toBe('❗️')
+    const passwordInput = sut.getByTestId('password')
+    fireEvent.input(passwordInput, { target: { value: password } })
+    const passwordStatus = sut.getByTestId('password-status')
+    expect(passwordStatus.title).toBe(validationStub.errorMessage)
+    expect(passwordStatus.textContent).toBe('❗️')
   })
   it('Should show valid password state if validation succeeds', () => {
-    const emailInput = sut.getByTestId('password')
+    const passwordInput = sut.getByTestId('password')
     validationStub.errorMessage = null
-    fireEvent.input(emailInput, { target: { value: password } })
-    const emailStatus = sut.getByTestId('password-status')
+    fireEvent.input(passwordInput, { target: { value: password } })
+    const passwordStatus = sut.getByTestId('password-status')
+    expect(passwordStatus.title).toBe('great!')
+    expect(passwordStatus.textContent).toBe('✅')
+  })
+  it('Should show valid email state if validation succeeds', () => {
+    const emailInput = sut.getByTestId('email')
+    validationStub.errorMessage = null
+    fireEvent.input(emailInput, { target: { value: email } })
+    const emailStatus = sut.getByTestId('email-status')
     expect(emailStatus.title).toBe('great!')
     expect(emailStatus.textContent).toBe('✅')
   })
