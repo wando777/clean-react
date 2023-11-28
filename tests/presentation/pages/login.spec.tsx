@@ -1,13 +1,18 @@
-import React from 'react'
 import { RenderResult, cleanup, fireEvent, render } from '@testing-library/react'
 import Login from '@/presentation/pages/login/login'
 import { ValidationSpy } from '../test/mock-validation'
+import React from 'react'
+import { faker } from "@faker-js/faker"
 
 describe('Login component', () => {
   let sut: RenderResult
   let validationSpy: ValidationSpy
+  let email: string
+  let password: string
   beforeAll(() => {
     validationSpy = new ValidationSpy()
+    email = faker.internet.email()
+    password = faker.internet.password()
   })
   beforeEach(() => {
     jest.clearAllMocks()
@@ -31,16 +36,16 @@ describe('Login component', () => {
   it('Should call Validation with correct email', () => {
     // const { sut, validationSpy } = makeSut()
     const emailInput = sut.getByTestId('email')
-    fireEvent.input(emailInput, { target: { value: 'any_email' } })
+    fireEvent.input(emailInput, { target: { value: email } })
     expect(validationSpy.fieldName).toBe('email')
-    expect(validationSpy.fieldValue).toBe('any_email')
+    expect(validationSpy.fieldValue).toBe(email)
   })
   it('Should call Validation with correct password', () => {
     // const { sut, validationSpy } = makeSut()
     const passwordInput = sut.getByTestId('password')
-    fireEvent.input(passwordInput, { target: { value: 'any_password' } })
+    fireEvent.input(passwordInput, { target: { value: password } })
     expect(validationSpy.fieldName).toBe('password')
-    expect(validationSpy.fieldValue).toBe('any_password')
+    expect(validationSpy.fieldValue).toBe(password)
   })
 
 })
