@@ -1,28 +1,7 @@
 import React from 'react'
 import { RenderResult, cleanup, fireEvent, render } from '@testing-library/react'
 import Login from '@/presentation/pages/login/login'
-import { Validation } from '../protocols'
-
-class ValidationSpy implements Validation {
-  errorMessage!: string
-  fieldName!: string
-  fieldValue!: string
-
-  validate(fieldName: string, fieldValue: string): string {
-    this.fieldName = fieldName
-    this.fieldValue = fieldValue
-    return this.errorMessage;
-  }
-}
-
-// const makeSut = () => {
-//   const validationSpy = new ValidationSpy()
-//   const sut = render(<Login validation={validationSpy} />)
-//   return {
-//     sut,
-//     validationSpy
-//   }
-// }
+import { ValidationSpy } from '../test/mock-validation'
 
 describe('Login component', () => {
   let sut: RenderResult
