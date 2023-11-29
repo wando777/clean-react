@@ -66,16 +66,16 @@ describe('Login component', () => {
     expect(passwordStatus.textContent).toBe('❗️')
   })
   it('Should show valid password state if validation succeeds', () => {
-    const passwordInput = sut.getByTestId('password')
     validationStub.errorMessage = null
+    const passwordInput = sut.getByTestId('password')
     fireEvent.input(passwordInput, { target: { value: password } })
     const passwordStatus = sut.getByTestId('password-status')
     expect(passwordStatus.title).toBe('great!')
     expect(passwordStatus.textContent).toBe('✅')
   })
   it('Should show valid email state if validation succeeds', () => {
-    const emailInput = sut.getByTestId('email')
     validationStub.errorMessage = null
+    const emailInput = sut.getByTestId('email')
     fireEvent.input(emailInput, { target: { value: email } })
     const emailStatus = sut.getByTestId('email-status')
     expect(emailStatus.title).toBe('great!')
@@ -87,7 +87,18 @@ describe('Login component', () => {
     fireEvent.input(emailInput, { target: { value: email } })
     const passwordInput = sut.getByTestId('password')
     fireEvent.input(passwordInput, { target: { value: password } })
-    const emailStatus = sut.getByTestId('submit') as HTMLButtonElement
-    expect(emailStatus.disabled).toBe(false)
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
+    expect(submitButton.disabled).toBe(false)
+  })
+  it('Should show loading spinner on submit', () => {
+    validationStub.errorMessage = null
+    const emailInput = sut.getByTestId('email')
+    fireEvent.input(emailInput, { target: { value: email } })
+    const passwordInput = sut.getByTestId('password')
+    fireEvent.input(passwordInput, { target: { value: password } })
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
+    fireEvent.click(submitButton)
+    const spinner = sut.getByTestId('spinner')
+    expect(spinner).toBeTruthy()
   })
 })
