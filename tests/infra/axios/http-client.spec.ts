@@ -1,5 +1,5 @@
-import { AxiosHttpClient } from "@/infra/axios"
-import { faker } from "@faker-js/faker"
+import { AxiosHttpClient } from '@/infra/axios'
+import { faker } from '@faker-js/faker'
 import axios from 'axios'
 
 jest.mock('axios')
@@ -31,4 +31,3 @@ describe('AxiosHttpClient', () => {
     expect(response).toEqual({ statusCode, body })
   })
 })
-

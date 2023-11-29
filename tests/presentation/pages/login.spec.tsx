@@ -3,17 +3,21 @@ import Login from '@/presentation/pages/login/login'
 import { ValidationStub } from '../test/mock-validation'
 import React from 'react'
 import { faker } from "@faker-js/faker"
+import { Authentication, AuthenticationParams } from '@/domain/usecases'
+import { AccountModel } from '@/domain/models'
 // import { Validation } from '../protocols'
 // import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('Login component', () => {
   let sut: RenderResult
   let validationStub: ValidationStub
+  let authenticationSpy: AuthenticationSpy
   // let validation: MockProxy<Validation>
   let email: string
   let password: string
   beforeAll(() => {
     validationStub = new ValidationStub()
+    authenticationSpy = new AuthenticationSpy()
     email = faker.internet.email()
     password = faker.internet.password()
     validationStub.errorMessage = faker.string.alpha()
@@ -22,7 +26,7 @@ describe('Login component', () => {
   })
   beforeEach(() => {
     jest.clearAllMocks()
-    sut = render(<Login validation={validationStub} />)
+    sut = render(<Login validation={validationStub} authentication={authenticationSpy} />)
   })
   afterEach(cleanup)
   it('Should not render errors feedback when starting', () => {
@@ -101,4 +105,25 @@ describe('Login component', () => {
     const spinner = sut.getByTestId('spinner')
     expect(spinner).toBeTruthy()
   })
+  it('Should call Authentication with correct values', () => {
+    validationStub.errorMessage = null
+    const emailInput = sut.getByTestId('email')
+    fireEvent.input(emailInput, { target: { value: email } })
+    const passwordInput = sut.getByTestId('password')
+    fireEvent.input(passwordInput, { target: { value: password } })
+    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
+    fireEvent.click(submitButton)
+    expect(authenticationSpy.params).toEqual({
+      email,
+      password
+    })
+  })
 })
+
+class AuthenticationSpy implements Authentication {
+  params!: AuthenticationParams
+  async auth(_params: AuthenticationParams): Promise<AccountModel> {
+    this.params = _params
+    return Promise.resolve({ accessToken: '' })
+  }
+}

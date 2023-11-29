@@ -1,10 +1,10 @@
 import { AuthenticationParams } from '@/domain/usecases'
-import { RemoteAuthentication } from '@/data/usecases/authentication';
+import { RemoteAuthentication } from '@/data/usecases/authentication'
 import { HttpPostClientSpy } from '../mocks/mock-http-client'
-import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors';
+import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
 import { faker } from '@faker-js/faker'
-import { HttpStatusCode } from '@/data/protocols/http';
-import { AccountModel } from '@/domain/models';
+import { HttpStatusCode } from '@/data/protocols/http'
+import { AccountModel } from '@/domain/models'
 
 describe('RemoteAuthentication', () => {
   let sut: RemoteAuthentication
