@@ -1,10 +1,10 @@
 import { RenderResult, cleanup, fireEvent, render } from '@testing-library/react'
+import React from 'react'
 import Login from '@/presentation/pages/login/login'
 import { ValidationStub } from '../test/mock-validation'
-import React from 'react'
+import { AuthenticationSpy } from '../test/mock-authentication'
 import { faker } from "@faker-js/faker"
-import { Authentication, AuthenticationParams } from '@/domain/usecases'
-import { AccountModel } from '@/domain/models'
+
 // import { Validation } from '../protocols'
 // import { mock, type MockProxy } from 'jest-mock-extended'
 
@@ -119,11 +119,3 @@ describe('Login component', () => {
     })
   })
 })
-
-class AuthenticationSpy implements Authentication {
-  params!: AuthenticationParams
-  async auth(_params: AuthenticationParams): Promise<AccountModel> {
-    this.params = _params
-    return Promise.resolve({ accessToken: '' })
-  }
-}
