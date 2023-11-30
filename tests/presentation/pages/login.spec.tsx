@@ -1,9 +1,10 @@
-import { RenderResult, cleanup, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import Login from '@/presentation/pages/login/login'
+import { RenderResult, cleanup, fireEvent, render, waitFor } from '@testing-library/react'
 import { ValidationStub } from '../test/mock-validation'
 import { AuthenticationSpy } from '../test/mock-authentication'
 import { faker } from "@faker-js/faker"
+import { InvalidCredentialsError } from '@/domain/errors'
 
 // import { Validation } from '../protocols'
 // import { mock, type MockProxy } from 'jest-mock-extended'
@@ -132,4 +133,15 @@ describe('Login component', () => {
     fireEvent.submit(sut.getByTestId('form'))
     expect(authenticationSpy.callsCount).toBe(0)
   })
+  // it('Should trigger an error if Authentication fails', async () => {
+  //   // authenticationSpy.callsCount = 0
+  //   const error = new InvalidCredentialsError()
+  //   jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(error)
+  //   simulateValidSubmit(sut, email, password)
+  //   const errorWrap = sut.getByTestId('error-wrap')
+  //   await waitFor(() => errorWrap)
+  //   const mainError = sut.getByTestId("main-error")
+  //   expect(mainError.textContent).toBe(error.message)
+  //   expect(errorWrap.childElementCount).toBe(1)
+  // })
 })
