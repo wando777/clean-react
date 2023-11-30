@@ -37,12 +37,12 @@ describe('Login component', () => {
     authenticationSpy = new AuthenticationSpy()
     email = faker.internet.email()
     password = faker.internet.password()
-    validationStub.errorMessage = faker.string.alpha()
     // validation = mock()
     // validation.validate.mockReturnValueOnce(faker.string.alpha())
   })
   beforeEach(() => {
     jest.clearAllMocks()
+    validationStub.errorMessage = faker.string.alpha()
     sut = render(<Login validation={validationStub} authentication={authenticationSpy} />)
   })
   afterEach(cleanup)
@@ -121,8 +121,15 @@ describe('Login component', () => {
   })
   it('Should call Authentication only once', () => {
     authenticationSpy.callsCount = 0
+    validationStub.errorMessage = null
     simulateValidSubmit(sut)
     simulateValidSubmit(sut)
     expect(authenticationSpy.callsCount).toBe(1)
+  })
+  it('Should not call Authentication if form is invalid', () => {
+    authenticationSpy.callsCount = 0
+    fillEmailField(sut)
+    fireEvent.submit(sut.getByTestId('form'))
+    expect(authenticationSpy.callsCount).toBe(0)
   })
 })
