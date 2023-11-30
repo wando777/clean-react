@@ -8,6 +8,23 @@ import { faker } from "@faker-js/faker"
 // import { Validation } from '../protocols'
 // import { mock, type MockProxy } from 'jest-mock-extended'
 
+const simulateValidSubmit = (sut: RenderResult, email = faker.internet.email(), password = faker.internet.password()): void => {
+  fillEmailField(sut, email)
+  fillPasswordField(sut, password)
+  const submitButton = sut.getByTestId('submit') as HTMLButtonElement
+  fireEvent.click(submitButton)
+}
+
+const fillEmailField = (sut: RenderResult, email = faker.internet.email()): void => {
+  const emailInput = sut.getByTestId('email')
+  fireEvent.input(emailInput, { target: { value: email } })
+}
+
+const fillPasswordField = (sut: RenderResult, password = faker.internet.password()): void => {
+  const passwordInput = sut.getByTestId('password')
+  fireEvent.input(passwordInput, { target: { value: password } })
+}
+
 describe('Login component', () => {
   let sut: RenderResult
   let validationStub: ValidationStub
@@ -56,63 +73,47 @@ describe('Login component', () => {
   //   expect(validationStub.fieldValue).toBe(password)
   // })
   it('Should show email error when validation fails', () => {
-    const emailInput = sut.getByTestId('email')
-    fireEvent.input(emailInput, { target: { value: email } })
+    fillEmailField(sut)
     const emailStatus = sut.getByTestId('email-status')
     expect(emailStatus.title).toBe(validationStub.errorMessage)
     expect(emailStatus.textContent).toBe('❗️')
   })
   it('Should show password error when validation fails', () => {
-    const passwordInput = sut.getByTestId('password')
-    fireEvent.input(passwordInput, { target: { value: password } })
+    fillPasswordField(sut)
     const passwordStatus = sut.getByTestId('password-status')
     expect(passwordStatus.title).toBe(validationStub.errorMessage)
     expect(passwordStatus.textContent).toBe('❗️')
   })
   it('Should show valid password state if validation succeeds', () => {
     validationStub.errorMessage = null
-    const passwordInput = sut.getByTestId('password')
-    fireEvent.input(passwordInput, { target: { value: password } })
+    fillPasswordField(sut)
     const passwordStatus = sut.getByTestId('password-status')
     expect(passwordStatus.title).toBe('great!')
     expect(passwordStatus.textContent).toBe('✅')
   })
   it('Should show valid email state if validation succeeds', () => {
     validationStub.errorMessage = null
-    const emailInput = sut.getByTestId('email')
-    fireEvent.input(emailInput, { target: { value: email } })
+    fillEmailField(sut)
     const emailStatus = sut.getByTestId('email-status')
     expect(emailStatus.title).toBe('great!')
     expect(emailStatus.textContent).toBe('✅')
   })
   it('Should enable submit button if form is valid', () => {
     validationStub.errorMessage = null
-    const emailInput = sut.getByTestId('email')
-    fireEvent.input(emailInput, { target: { value: email } })
-    const passwordInput = sut.getByTestId('password')
-    fireEvent.input(passwordInput, { target: { value: password } })
+    fillEmailField(sut)
+    fillPasswordField(sut)
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement
     expect(submitButton.disabled).toBe(false)
   })
   it('Should show loading spinner on submit', () => {
     validationStub.errorMessage = null
-    const emailInput = sut.getByTestId('email')
-    fireEvent.input(emailInput, { target: { value: email } })
-    const passwordInput = sut.getByTestId('password')
-    fireEvent.input(passwordInput, { target: { value: password } })
-    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
-    fireEvent.click(submitButton)
+    simulateValidSubmit(sut)
     const spinner = sut.getByTestId('spinner')
     expect(spinner).toBeTruthy()
   })
   it('Should call Authentication with correct values', () => {
     validationStub.errorMessage = null
-    const emailInput = sut.getByTestId('email')
-    fireEvent.input(emailInput, { target: { value: email } })
-    const passwordInput = sut.getByTestId('password')
-    fireEvent.input(passwordInput, { target: { value: password } })
-    const submitButton = sut.getByTestId('submit') as HTMLButtonElement
-    fireEvent.click(submitButton)
+    simulateValidSubmit(sut, email, password)
     expect(authenticationSpy.params).toEqual({
       email,
       password
