@@ -4,7 +4,7 @@ import { RenderResult, cleanup, fireEvent, render, waitFor } from '@testing-libr
 import { ValidationStub } from '../test/mock-validation'
 import { AuthenticationSpy } from '../test/mock-authentication'
 import { faker } from "@faker-js/faker"
-import { InvalidCredentialsError } from '@/domain/errors'
+import 'jest-localstorage-mock'
 
 // import { Validation } from '../protocols'
 // import { mock, type MockProxy } from 'jest-mock-extended'
@@ -42,7 +42,8 @@ describe('Login component', () => {
     // validation.validate.mockReturnValueOnce(faker.string.alpha())
   })
   beforeEach(() => {
-    jest.clearAllMocks()
+    // jest.clearAllMocks()
+    localStorage.clear()
     validationStub.errorMessage = faker.string.alpha()
     sut = render(<Login validation={validationStub} authentication={authenticationSpy} />)
   })
@@ -134,7 +135,7 @@ describe('Login component', () => {
     expect(authenticationSpy.callsCount).toBe(0)
   })
   // it('Should trigger an error if Authentication fails', async () => {
-  //   // authenticationSpy.callsCount = 0
+  //   authenticationSpy.callsCount = 0
   //   const error = new InvalidCredentialsError()
   //   jest.spyOn(authenticationSpy, 'auth').mockRejectedValueOnce(error)
   //   simulateValidSubmit(sut, email, password)
@@ -144,4 +145,10 @@ describe('Login component', () => {
   //   expect(mainError.textContent).toBe(error.message)
   //   expect(errorWrap.childElementCount).toBe(1)
   // })
+  it('Should add accessToken to localstorage on success', async () => {
+    // authenticationSpy.callsCount = 0
+    simulateValidSubmit(sut)
+    await waitFor(() => sut.getByTestId('form'))
+    expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', 'any_accessToken')
+  })
 })
