@@ -151,4 +151,10 @@ describe('Login component', () => {
     await waitFor(() => sut.getByTestId('form'))
     expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', 'any_accessToken')
   })
+  // it('Should take the user to signup page', async () => {
+  //   // authenticationSpy.callsCount = 0
+  //   simulateValidSubmit(sut)
+  //   const signUp = sut.getByTestId('signup')
+  //   fireEvent.click(signUp)
+  // })
 })
