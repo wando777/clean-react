@@ -1,5 +1,5 @@
-import { RequiredFieldError } from "@/presentation/validation/errors/required-field-error"
-import { RequiredFieldValidation } from "@/presentation/validation/required-field/validation"
+import { RequiredFieldError } from "@/presentation/validation/errors"
+import { RequiredFieldValidation } from "@/presentation/validation/validators/required-field/validation"
 import { faker } from "@faker-js/faker"
 
 describe('RequiredFieldValidation', () => {
