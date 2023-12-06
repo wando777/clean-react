@@ -1,6 +1,6 @@
-import { RequiredFieldError } from "@/presentation/validation/errors"
-import { RequiredFieldValidation } from "@/presentation/validation/validators/required-field/validation"
-import { faker } from "@faker-js/faker"
+import { RequiredFieldError } from '@/presentation/validation/errors'
+import { RequiredFieldValidation } from '@/presentation/validation/validators/required-field/validation'
+import { faker } from '@faker-js/faker'
 
 describe('RequiredFieldValidation', () => {
   let sut: RequiredFieldValidation
@@ -20,4 +20,3 @@ describe('RequiredFieldValidation', () => {
     expect(validateError).toBeFalsy()
   })
 })
-

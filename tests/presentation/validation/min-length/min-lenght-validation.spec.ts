@@ -1,6 +1,6 @@
-import { faker } from "@faker-js/faker"
-import { MinLengthError } from "@/presentation/validation/errors"
-import { MinLengthValidation } from "@/presentation/validation/validators/min-length/min-length-validation"
+import { faker } from '@faker-js/faker'
+import { MinLengthError } from '@/presentation/validation/errors'
+import { MinLengthValidation } from '@/presentation/validation/validators/min-length/min-length-validation'
 
 describe('MinLengthValidation', () => {
   let sut: MinLengthValidation
@@ -20,6 +20,3 @@ describe('MinLengthValidation', () => {
     expect(validationError).toBeFalsy()
   })
 })
-
-
-

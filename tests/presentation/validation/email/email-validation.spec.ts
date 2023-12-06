@@ -1,6 +1,6 @@
-import { faker } from "@faker-js/faker"
-import { InvalidFieldError } from "@/presentation/validation/errors"
-import { EmailValidation } from "@/presentation/validation/validators/email/email-validations"
+import { faker } from '@faker-js/faker'
+import { InvalidFieldError } from '@/presentation/validation/errors'
+import { EmailValidation } from '@/presentation/validation/validators/email/email-validations'
 
 describe('EmailValidation', () => {
   let sut: EmailValidation
@@ -24,6 +24,3 @@ describe('EmailValidation', () => {
     expect(validationError).toBeFalsy()
   })
 })
-
-
-
