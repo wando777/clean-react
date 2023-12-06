@@ -15,6 +15,10 @@ describe('EmailValidation', () => {
     const validationError = sut.validate('any_invalid_email')
     expect(validationError).toEqual(new InvalidFieldError('email'))
   })
+  it('Should return false if email is empty', () => {
+    const validationError = sut.validate('')
+    expect(validationError).toBeFalsy()
+  })
   it('Should return false if email is valid', () => {
     const validationError = sut.validate(email)
     expect(validationError).toBeFalsy()
