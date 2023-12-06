@@ -5,17 +5,19 @@ describe('ValidationComposite', () => {
   let sut: ValidationComposite
   let fieldValidationSpy: FieldValidationSpy
   let fieldValidationSpy2: FieldValidationSpy
-  beforeAll(() => {
+  beforeEach(() => {
     fieldValidationSpy = new FieldValidationSpy('any_field')
     fieldValidationSpy2 = new FieldValidationSpy('any_field')
-    fieldValidationSpy2.error = new Error('any_error_message')
-  })
-  beforeEach(() => {
     sut = new ValidationComposite([fieldValidationSpy, fieldValidationSpy2])
   })
   it('Should return error if any validation fails', () => {
+    fieldValidationSpy2.error = new Error('any_error_message')
     const error = sut.validate('any_field', 'any_value')
     expect(error).toEqual('any_error_message')
+  })
+  it('Should return empty if none validation fails', () => {
+    const error = sut.validate('any_field', 'any_value')
+    expect(error).toEqual('')
   })
 })
 
